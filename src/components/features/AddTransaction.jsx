@@ -7,7 +7,7 @@ import { transactions as mock } from '../../data/mockData';
 let selectedCategory = 'Еда';
 let calendarReady = false;
 
-const AddTransaction = () => {
+const AddTransaction = ({ onUpdateTransactions }) => {
     const selectCategory = (category, event) => {
         selectedCategory = category;
 
@@ -32,7 +32,9 @@ const AddTransaction = () => {
         calendarReady = true;
     };
 
-    const handleAdd = () => {
+    const handleAdd = (e) => {
+        e.preventDefault();
+
         const titleInput = document.getElementById('title');
         const amountInput = document.getElementById('amount');
         const dateInput = document.getElementById('transactionDate');
@@ -73,7 +75,10 @@ const AddTransaction = () => {
 
         titleInput.value = '';
         amountInput.value = '';
-        location.reload();
+
+        if (onUpdateTransactions) {
+            onUpdateTransactions();
+        }
     };
 
     return (

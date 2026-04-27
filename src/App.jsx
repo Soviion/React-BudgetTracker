@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { transactions as mock, categories as mockCategories } from './data/mockData';
 import { getTransactions, getCategories } from './data/storage';
 
@@ -10,15 +12,22 @@ import LimitSettings from './components/features/LimitSettings';
 
 import './App.css';
 
-const transactions = getTransactions(mock);
 const categories = getCategories(mockCategories);
 
-console.group('BudgetTracker debug');
-console.table(transactions);
-console.log('Категории:', categories);
-console.groupEnd();
-
 function App() {
+  const [update, setUpdate] = useState(0);
+
+  const transactions = getTransactions(mock);
+
+  const handleUpdateTransactions = () => {
+    setUpdate(update + 1);
+  };
+
+  console.group('BudgetTracker debug');
+  console.table(transactions);
+  console.log('Категории:', categories);
+  console.groupEnd();
+
   return (
     <div className="app">
       <div className="app__container">
@@ -37,7 +46,7 @@ function App() {
         </header>
 
         <section className="finance-layout">
-          <AddTransaction />
+          <AddTransaction onUpdateTransactions={handleUpdateTransactions} />
 
           <div className="limits-column">
             <div className="limits-header">
