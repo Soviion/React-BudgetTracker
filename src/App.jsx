@@ -13,6 +13,11 @@ import './App.css';
 const transactions = getTransactions(mock);
 const categories = getCategories(mockCategories);
 
+console.group('BudgetTracker debug');
+console.table(transactions);
+console.log('Категории:', categories);
+console.groupEnd();
+
 function App() {
   return (
     <div className="app">
